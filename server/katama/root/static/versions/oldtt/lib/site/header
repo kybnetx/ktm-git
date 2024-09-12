@@ -1,0 +1,12 @@
+<!-- BEGIN site/header -->
+<table>
+  <tr>
+	<td>
+	  <img id="ktmlogo" src="/static/images/ktmlogo72x59.png" alt="ktmlogo" />
+	</td>
+	<td>
+	  <h2 class="title">[% template.title or site.title %]</h1>
+	</td>
+  </tr>
+</table>
+<!-- END site/header -->

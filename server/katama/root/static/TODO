@@ -1,0 +1,12 @@
+
+[sq.js]
+- when parrent node collapsed, the selected child node cannot be seen. therefore, when parrent gets collapsed, deselect child node and disable add/edit functions.
+- when changing some tree node (through window), disable moving of cursor in tree, this can be confusing.
+
+[globaly]
+- see class Ext and set required stuff from there (BLANK_IMAGE_URL, etc)
+- write extension for table layout which accepts width as percentage value (similar to column layout)
+
+[ktm.EditGrid]
+- CRUD/adding new record on paged grid: need to reload the page where the record has been added. This again depends on sorting order of the records. If there is no sorting order, the position is unpredictable. So, we need sorted grid. The default sort could be uidx (the order of adding)
+- add checking of the field values

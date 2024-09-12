@@ -1,0 +1,111 @@
+
+html {
+    height: 100%;
+}
+
+body { 
+    background-color: [% site.col.page %];
+    color: [% site.col.text %];
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+h1.title {
+    padding: 4px;
+    margin: 0px;
+}
+
+img#ktmlogo {
+	margin: 5px;
+}
+
+.message {
+    color: [% site.col.message %];
+}
+
+.error {
+    color: [% site.col.error %];
+}
+
+#header {
+    background-color: [% site.col.head %];
+    border-bottom: 1px solid [% site.col.line %];
+}
+
+#footer {
+	clear: both;
+    background-color: [% site.col.head %];
+    text-align: center;
+    border-top: 1px solid [% site.col.line %];
+/*
+	position: relative;
+    bottom: 0;
+    left: 0px;
+    width: 100%;
+    padding: 4px;
+*/
+}
+
+#Lsidebar {
+	float: left;
+	width: 70px;
+	height: 800px;
+	padding: 5px;
+    background-color: [% site.col.head %];
+    border-right: 1px double [% site.col.line %];
+}
+
+div.content {
+    padding: 5px;
+}
+
+#app_container {
+	background-color: #a0a0a0;
+	width: 1120px;
+	height: 800px;
+    padding: 5px;
+}
+#sq_container {
+	float: left;
+	background-color: #ffa0a0;
+	width: 550px;
+	height: 390px;
+    padding: 5px;
+}
+#sb_container {
+	float: left;
+	background-color: #a0ffa0;
+	width: 550px;
+	height: 390px;
+    padding: 5px;
+}
+#kt_container {
+	float: left;
+	background-color: #a0a0ff;
+	width: 550px;
+	height: 390px;
+    padding: 5px;
+}
+#pg_container {
+	float: left;
+	background-color: #ffffa0;
+	width: 550px;
+	height: 390px;
+    padding: 5px;
+}
+
+#info-sq p {
+	font-size:8px;
+    margin: 4px;
+}
+
+.sq-node .x-tree-node-icon {
+	background-image:url( /static/extjs/resources/images/default/tree/folder.gif ) !important;
+}
+
+.newBFC {overflow: hidden; _overflow:visible; _overflow-x: hidden; _height: 0;}
+/*\*//*/
+.newBFC {display: inline-block;}
+/**/
+

@@ -1,0 +1,130 @@
+Run script/katama_server.pl to test the application.
+
+A. INITIALIZE DEVELOPMENT:
+--------------------------
+1--> Application:
+	 run: catalyst.pl katama
+
+2--> SQLite Database:
+	 run: sqlite3 katama.db < katama.sql
+
+
+B. APPLICATION CLASS - lib/katama.pm (auto created):
+----------------------------------------------------
+1--> Framework:
+	 use Catalyst::Runtime '5.70';
+
+2--> Plugins to use in application:
+	 use Catalyst qw/-Debug ConfigLoader Static::Simple StackTrace/;
+
+3--> Default configuration overriden by ConfigLoader and katama.yml
+	 __PACKAGE__->config( name => 'katama' );
+
+4--> Application start:
+	 __PACKAGE__->setup;
+
+
+C. DBIC (DBIx::Class) SCHEMA CLASS - lib/katamaDB.pm (manualy created):
+-----------------------------------------------------------------------
+1--> Base class:
+	 use base qw/DBIx::Class::Schema/;
+
+2--> DB Model classes to load - "table objects"/"result sources" from the
+	 directory with the same name (katamaDB):
+	 __PACKAGE__->load_classes({ katamaDB => [qw/Bookings/] });
+	 or loads all of them:
+	 __PACKAGE__->load_classes(qw//);
+	 or loads them this way:
+	 __PACKAGE__->load_classes(qw/Bookings/);
+
+
+D. DBIC "RESULT SOURCE" DIRECTORY - lib/katamaDB (manualy created):
+-------------------------------------------------------------------
+1--> "table objects"/"result source" files:
+     lib/katamaDB/Bookings.pm
+
+2--> DBIC stuff:
+     use base qw/DBIx::Class/;
+	 __PACKAGE__->load_components(qw/PK::Auto Core/);
+
+3--> Table to use:
+	 __PACKAGE__->table('booking');
+
+4--> Columns in the table:
+	 __PACKAGE__->add_columns(qw/id po_ref resource resource_name/);
+
+5--> Primary key for the table:
+     __PACKAGE__->set_primary_key(qw/id/);
+
+6--> Relationship has_many():
+		1. Name of relationship, DBIC will create accessor with this name
+		2. Name of the model class referenced by this relationship
+		3. Column name in *foreign* table
+	 __PACKAGE__->has_many( 1 book_authors => 2 'MyAppDB::BookAuthor', 3 'book_id');
+
+7--> Relationship many_to_many():
+		1. Name of relationship, DBIC will create accessor with this name
+		2. Name of has_many() relationship this many_to_many() is shortcut for
+		3. Name of belongs_to() relationship in model class of has_many() above 
+		You must already have the has_many() defined to use a many_to_many().
+	 __PACKAGE__->many_to_many(1 authors => 2 'book_authors', 3 'author');
+
+
+E. MODEL CLASS THAT LOADS UP OUR MODEL - WITH Catalyst::Helper::Model::DBIC::Schema:
+------------------------------------------------------------------------------------
+1--> run: script/katama_create.pl model	\
+		katamaDB DBIC::Schema			\	# class to be created in lib/katama/Model
+		katamaDB dbi:SQLite:katama.db	\	# our existing schema in lib/katamaDB.pm (C)
+		'' ''							\
+		'{ AutoCommit => 1 }'
+
+
+F. CONTROLLER - lib/katama/Controller/Bookings.pm:
+--------------------------------------------------
+1--> run: script/myapp_create.pl controller Bookings
+
+2--> Action to be called with http:://<host:port>/<view>/<action>
+	 sub <action> : Local {
+
+3-->	# $c is retrieved as the Catalyst 'context'
+		my ($self, $c) = @_;
+
+4-->	# retrieve records and store them into 'stash' for the template access
+		$c->stash->{booking} = [$c->model('katamaDB::Bookings')->all];
+		# it can be also set as:
+		$c->stash->{booking} = [$c->model('katamaDB')->resultset('Bookings')->all];
+
+5-->	# set the TT template to be used
+		$c->stash->{template} = 'bookings/listbookings.tt2';
+
+
+G. VIEW - TTSite:
+-----------------
+1--> run: script/katama_create.pl view TT TTSite
+
+2--> Views context config in lib/katama/View/TT.pm:
+	 __PACKAGE__->config({
+		# Catalyst Context
+		CATALYST_VAR => 'Catalyst',
+
+3--> Views debug config lib/katama/View/TT.pm:
+		# debug options: undef, all, service, context, parser, provider
+		DEBUG        => 'undef',
+
+4--> Views customization in root/lib/site/layout - set the stash somewhere globaly:
+	 <span class="message">[% status_msg %]</span>
+	 ...
+	 # stash lasts only for a single HTTP request
+	 $c->stash->{status_msg} = 'Request was successful!'
+
+
+H. VIEW root/src/bookings/listbookings.tt2 - CREATE TT TEMPLATE PAGE:
+---------------------------------------------------------------------
+1--> Directory for custom view templates:
+	 run: mkdir root/src/bookings
+
+2--> Create and edit template file listbookings.tt2:
+	 [% FOREACH bk IN booking -%]
+	 ...
+	 [% END -%]
+

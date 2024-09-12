@@ -1,0 +1,22 @@
+this.ds.fields.get(i) has no properties
+ext-all-debug.js (Line 30510)
+
+getColumnData()
+renderRows(undefined, undefined)
+renderUI()
+render()
+onRender(Object dom=div#grid-example id=grid-example, null)
+render("grid-example", undefined)
+render()
+Component(Object store=Object columns=[4] plugins=[2])
+aply()
+aply()
+aply()
+aply()
+aply()
+(no name)()
+fire()
+fireDocReady()
+
+name : (typeof name == 'undefined' ? this.ds.fields.get(i).name ...
+

@@ -1,0 +1,171 @@
+/*** EXT FIXES ***/
+.ext-strict .ext-safari .x-small-editor .x-form-text {
+    height: 18px !important;
+}
+.ext-safari .x-form-field-wrap .x-form-trigger{
+    position:static;
+    top:auto;
+    vertical-align:top;
+}
+
+/*** application icons ***/
+.icon-app-add {
+	background-image:url(../images/icons/application_add.png) ! important;
+}
+.icon-app-save {
+	background-image:url(../images/icons/application_go.png) ! important;
+}
+.icon-app-del {
+	background-image:url(../images/icons/application_delete.png) ! important;
+}
+.icon-app-cancel {
+	background-image:url(../images/icons/application_error.png) ! important;
+}
+.icon-app-edit {
+	background-image:url(../images/icons/application_edit.png) ! important;
+}
+.icon-app-mask {
+	background-image:url(../images/icons/application_view_icons.png) ! important;
+}
+.icon-app-form, .appform {
+	background-image:url(../images/icons/application_form.png) ! important;
+}
+
+/*** common icons ***/
+.icon-add, .actadd {
+	background-image:url(../images/icons/add.png) ! important;
+}
+.icon-del, .actdel {
+	background-image:url(../images/icons/delete.png) ! important;
+}
+.icon-cancel {
+	background-image:url(../images/icons/cancel.png) ! important;
+}
+.icon-accept {
+	background-image:url(../images/icons/accept.png) ! important;
+}
+.icon-use, .actuse {
+	background-image:url(../images/icons/arrow_turn_right.png) ! important;
+}
+.icon-edit, .actedit {
+	background-image:url(../images/icons/pencil.png) ! important;
+}
+.icon-stop {
+	background-image:url(../images/icons/cross.png) ! important;
+}
+.icon-warn {
+	background-image:url(../images/icons/exclamation.png) ! important;
+}
+.icon-show, .actshow {
+	background-image:url(../images/icons/eye.png) ! important;
+}
+.icon-reload, .actreload {
+	background-image:url(../images/icons/arrow_rotate_anticlockwise.png) ! important;
+}
+
+/*** misc icons ***/
+.icon-loading {
+	background-image:url(../extjs/resources/images/default/grid/grid-loading.gif) ! important;
+}
+/* this one is for the checkbox extension when disabled */
+.icon-nono {
+	width:100%; height:16px;
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-color:transparent;
+	background-image:url(../extjs/resources/images/default/dd/drop-no.gif);
+}
+.icon-tvadd {
+	background-image:url(../images/icons/television_add.png) ! important;
+}
+.icon-tvdel {
+	background-image:url(../images/icons/television_delete.png) ! important;
+}
+.icon-apptile {
+	background-image:url(../images/icons/application_tile_vertical.png) ! important;
+}
+
+/*** tabs icon ***/
+.tabico, .pgtabs {
+    background-image:url( ../images/tabs.gif ) !important;
+}
+
+
+/*** RowTabExpander ***/
+.x-grid3-row-loading .x-grid3-row-expander {
+	background-image:url(../extjs/resources/images/default/grid/loading.gif) ! important;
+	background-position: 1px 1px;
+}
+.x-grid3-row-loading .x-grid3-row-body {
+	display:none !important;
+}
+
+
+
+/*** signalquellen adjustments ***/
+.sq-x-fset {
+	margin: 5px;
+}	
+
+
+
+/*** Disable headers in property grids ***/
+
+/* bouquet */
+.ktm-cw-property-grid .x-grid3-header {
+	display:none;
+}
+
+/* bqpg - bouquetprogramme RowTabExpander */
+
+/* table */
+.ux-rowtabex-bqpg-tab,
+.ux-rowtabex-satpg-tab {
+    border: 1px solid #000000;
+    background-color: #ffffcc;
+}
+
+/* table heading */
+.ux-rowtabex-bqpg-head,
+.ux-rowtabex-satpg-head {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: #444444;
+    color: #ffffff;
+}
+
+/* column dimensioning */
+.ux-rowtabex-bqpg-col0,
+.ux-rowtabex-satpg-col0 {
+    width: 50px;
+}
+.ux-rowtabex-bqpg-col1,
+.ux-rowtabex-satpg-col1 {
+    width: 100px;
+}
+.ux-rowtabex-bqpg-col2,
+.ux-rowtabex-satpg-col2 {
+    width: 100px;
+}
+
+/* table rows */
+.ux-rowtabex-bqpg-row,
+.ux-rowtabex-satpg-row {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* stripes */
+.ux-rowtabex-bqpg-str0,
+.ux-rowtabex-satpg-str0 {
+    background-color: #dddddd;
+}
+.ux-rowtabex-bqpg-str1,
+.ux-rowtabex-satpg-str1 {
+    background-color: #eeeeee;
+}
+

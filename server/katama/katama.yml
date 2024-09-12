@@ -1,0 +1,28 @@
+---
+name: katama
+
+# Static::Simple configuration
+static:
+  ignore_extensions:
+    - tmpl
+    - tt
+    - tt2
+    - xhtml
+# ignore directories as static
+#  ignore_dirs:
+#    - tmpl
+#    - css
+# change default locations
+#  include_path:
+#    - /my/root/path
+#    - /some/my/path
+# enable/disable logging
+  logging:
+    - 0
+# force directories as static only:
+  dirs:
+    - static
+    - ui
+#    - images
+#    - css
+

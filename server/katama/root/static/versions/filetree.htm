@@ -1,0 +1,452 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+	<!-- $Id: filetree.html 65 2007-07-26 09:24:36Z jozo $ -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="keywords" content="extjs,ext,ux,javascript,library,web development,web design,dhtml,widget,webdev,component,control,tree,file,gui,interface,effect,example,demo,download,howto,yui-ext,theme,aero,vista,skin,animation">
+	<title>Ext FileTree Widget Example by Saki</title>
+
+	<link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+	<link rel="stylesheet" type="text/css" href="extjs.ux/accordion.css">
+	<link rel="stylesheet" type="text/css" href="extjs.ux/uploadform.css">
+	<link rel="stylesheet" type="text/css" href="extjs.ux/filetree.css">
+
+	<link id="theme" rel="stylesheet" type="text/css" href="extjs/resources/css/xtheme-default.css">
+	<link rel="shortcut icon" href="/img/silk/icons/page_white_stack.png" type="image/png">
+
+	<script type="text/javascript" src="extjs/adapter/yui/yui-utilities.js"></script>
+	<script type="text/javascript" src="extjs/adapter/yui/ext-yui-adapter.js"></script>
+	<script type="text/javascript" src="extjs/ext-all-debug.js"></script>
+
+    <script type="text/javascript" src="extjs.ux/Ext.ux.InfoPanel.js"></script>
+    <script type="text/javascript" src="extjs.ux/Ext.ux.Accordion.js"></script>
+    <script type="text/javascript" src="extjs.ux/Ext.ux.UploadForm.js"></script>
+    <script type="text/javascript" src="extjs.ux/Ext.ux.FileTreePanel.js"></script>
+    <script type="text/javascript" src="extjs.ux/filetree.js"></script>
+
+<style type="text/css">
+#acc-ct {
+	width: 240px;
+	position: relative;
+}
+#acc-wrap {
+	border: 1px solid silver;
+	background-color: white;
+}
+#adsense-top, #adsense-bottom {
+	margin: 10px;
+}
+.x-dock-panel .x-dock-panel-body {
+	background-color: #ffffc8;
+}
+
+#middle-col {
+	margin-left: 250px;
+	margin-right: 250px;
+}
+#left-col {
+	position: absolute;
+	min-width: 250px;
+	top: 110px;
+	left:0;
+}
+#right-col {
+	position: absolute;
+	width: 250px;
+	top: 110px;
+	right:0;
+}
+#info-column {
+	border: 1px dotted silver;
+	background-color: #efefef;
+	margin: 4px;
+	padding: 8px;
+	font-size: 8pt;
+}
+#info-column ul {
+	list-style-type: disc;
+	list-style-position: inside;
+}
+#acc-ct {
+	margin: 4px;
+}
+#middle-content {
+	font-family: verdana, arial, tahoma;
+	font-size: 9pt;
+	margin-left:8px;
+	margin-right: 8px;
+	min-width: 300px;
+}
+body {
+	min-width: 600px;
+}
+h1 {
+	font-size: 140%;
+	margin-top: 8px;
+	margin-bottom: 1.5em;
+}
+h2 {
+	font-size: 120%;
+/*	margin-bottom: 1.5em;*/
+}
+h3 {
+	font-size: 110%;
+	margin-bottom: 1.5em;
+}
+h4 {
+	font-size: 90%;
+	margin-top: 1.5em;
+}
+p {
+	margin-bottom: 1.5em;
+}
+pre {
+	border: 1px solid silver;
+	border-left-width: 10px;
+	padding: 8px;
+	background-color: #efefef;
+	overflow: auto;
+	font-size: 8pt;
+	margin-bottom: 1em;
+}
+code {
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<!--{{{-->
+<div id="adsense-top">
+<script type="text/javascript">
+google_ad_client = "pub-2768521146228687";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_type = "text_image";
+//2007-07-08: FileTree
+google_ad_channel = "2367587409";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<!--}}}-->
+
+<div id="container">
+
+<!-- left col -->
+<!--{{{-->
+<div id="left-col">
+	<div id="acc-ct">
+		<div id="acc-wrap">
+			<div id="acc-body">
+				<div id="panel-tree">
+					<div>File tree</div>
+					<div>
+						<div id="tree"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--}}}-->
+
+<!-- middle col -->
+<!--{{{-->
+<div id="middle-col">
+<div id="middle-content">
+	<h1>FileTreePanel Client-Server Interface Specification</h1>
+	<p>
+	FileTreePanel is client-server application where client (browser) provides
+	the user interface (UI) which displays the tree and context menu, handles
+	drag &amp; drop operations, etc. The filesystem that is displayed and managed by
+	the UI is stored on a server.
+	</p>
+
+	<p>
+	Therefore, we need some communication layer between client and server. Client sends
+	a command to server, server processes this command and responds with a result. Client
+	in turn processes the response and display results.
+	</p>
+
+	<p>
+	All this communication is running in the background by <a href="http://developer.mozilla.org/en/docs/XMLHttpRequest">Ajax (XMLHttpRequest)</a>
+	calls. The XMLHttpRequest is not used directly but the <a href="http://extjs.com">Ext JS - JavaScript Library</a>
+	ajax layer is used for this purpose.
+	<p>
+
+	<p>
+	Client requests data from server with standard POST method and server is expected to respond
+	with <a href="http://json.org">JSON</a> (JavaScript Object Notation) string and appropriate
+	HTTP headers.
+	</p>
+	<h3>Example of rename command:</h3>
+
+	<h4>POST Request:</h4>
+	<pre>    cmd rename
+newname root/abc.txt
+oldname root/a.txt</pre>
+
+	<h4>Response headers:</h4>
+	<pre>Content-Type: application/json, charset=utf-8</pre>
+
+	<h4>Response content of success:</h4>
+	<pre>{"success":true}</pre>
+
+	<h4>Response content of failure:</h4>
+	<pre>{"success":false,"error":"Cannot rename file root/a.txt to root/abc.txt"}</pre>
+
+	<p>
+	The response headers are same as above for all responses, unless mentioned otherwise,
+	and they are therefore omitted from the following specification.
+	</p>
+
+	<h2>Paths</h2>
+	<p>
+	The server side filesystem that is managed by FileTreePanel starts at a directory
+	that is defined by the server for security purposes. Client cannot change its root
+	by any command.
+	</p>
+	<h3>Example of filesystem:</h3>
+  <h4>Server viewpoint:</h4>
+	<pre>/data/userfiles/root_for_client/dir1/file1
+/data/userfiles/root_for_client/dir1/file2
+/data/userfiles/root_for_client/dir2/file1
+/data/userfiles/root_for_client/dir2/file2</pre>
+
+  <h4>Client viewpoint:</h4>
+	<pre>root_for_client/dir1/file1
+root_for_client/dir1/file2
+root_for_client/dir2/file1
+root_for_client/dir2/file2</pre>
+
+	<p>Now, when client asks server "gimme nodes in <code>root_for_client</code>" the
+	server prepends absolute or relative root path, reads relevant part of the filesystem
+	and returns nodes. In our example, the server would prepend <code>/data/userfiles/</code>
+	to each client's request.
+	</p>
+	<p>It is server job to handle invalid requests or requests that can be potentially insecure
+	like ones starting with <b>/</b> or <b>..</b> The same must be true for all commands sent
+	from the client.
+	</p>
+	<p>&nbsp;</p>
+
+	<h1>Commands</h1>
+	<h2><i>get</i> command</h2>
+	<h4>Request:</h4>
+	<pre> cmd get
+path root/a</pre>
+
+	<h4>Response:</h4>
+	<pre>[
+{"text":"b","cls":"folder","disabled":false,"leaf":false},
+{"text":"a.txt","cls":"file-txt","disabled":false,"leaf":true,"qtip":"Size: 1047552"}
+]</pre>
+
+	<p><b><i>Note:</i></b> The response above is shown in four lines only for the purposes
+	of this specification to be more readable by humans. The line breaks must not be sent
+	from the server as a part of JSON string.
+	</p>
+
+	<p>In the above example, we request server to deliver nodes of path <code>root/a</code>
+	and it responds with one directory named <code>b</code> and one file named <code>a.txt</code>.
+	<code>"text":"b"</code> in the response is the name of the directory and <code>"text":"a.txt"</code>
+	is the name of the file. Note that server sends just names, not 
+	full paths of nodes.
+	</p>
+	<p>
+	<code>"cls":"file-txt"</code> in the response is to display correct file type icon by client and
+	<code>"qtip":"Size: 1047552"</code> is optional text for file tooltip. <code>leaf</code> property
+	distinguishes files from folders and <code>disabled</code> is true for read-only files or folders.
+	</p>
+	<p>
+	For the other possible properties that the tree can process if they are sent from the server consult
+	<a href="http://extjs.com/deploy/ext/docs/">Ext JS Documentation</a>.
+	</p>
+	<p>&nbsp;</p>
+
+	<h2><i>rename</i> command</h2>
+	<h4>Request:</h4>
+	<pre>    cmd rename
+newname root/abc.txt
+oldname root/a.txt</pre>
+
+	<h4>Response of success:</h4>
+	<pre>{"success":true}</pre>
+
+	<h4>Response of failure:</h4>
+	<pre>{"success":false,"error":"Cannot rename file root/a.txt to root/abc.txt"}</pre>
+
+	<p>
+	Error message text in the above example is not obligatory - server can send any kind of an
+	error message, e.g. localized text.
+	</p>
+	<p>&nbsp;</p>
+
+	<h2><i>newdir</i> command</h2>
+	<h4>Request:</h4>
+	<pre>cmd newdir
+dir root/a/b</pre>
+
+	<h4>Response of success:</h4>
+	<pre>{"success":true}</pre>
+
+	<h4>Response of failure:</h4>
+	<pre>{"success":false,"error":"Cannot create directory: root/a/b"}</pre>
+	<p>&nbsp;</p>
+
+	<h2><i>delete</i> command</h2>
+	<h4>Request:</h4>
+	<pre> cmd delete
+file root/a/b</pre>
+
+	<h4>Response of success:</h4>
+	<pre>{"success":true}</pre>
+
+	<h4>Response of failure:</h4>
+	<pre>{"success":false,"error":"Cannot delete: root/a/b"}</pre>
+	<p>&nbsp;</p>
+
+	<h2><i>upload</i> command</h2>
+	<h4>Request:</h4>
+	<pre> cmd upload
+path root/a
+</pre>
+
+	<h4>Response headers:</h4>
+	<pre>Content-Type: text/html, charset=utf-8</pre>
+
+	<h4>Response of success:</h4>
+	<pre>{"success":true}</pre>
+
+	<h4>Response of failure:</h4>
+	<pre>{"success":false,"errors":{"ext-gen524":"File upload error."}}</pre>
+	<p>
+	File uploads are handled differently. First of all, server has to respond with <code>text/html</code>
+	content type and, in the case of failure, it has to respond with <code>errors</code> object
+	with an error message for each uploaded file. Properties of <code>errors</code>
+	object are &lt;input type="file"&gt; field names. These names are auto-generated and they 
+	are available at server while processing the file uploads.
+	</p>
+	<p>
+	Server has to ignore <code>NO_FILE</code> error and it has to report <code>"success":true</code> only if
+	all files have been uploaded successfully.
+	</p>
+
+
+</div>
+</div>
+<!--}}}-->
+
+<!-- right col -->
+<!--{{{-->
+<div id="right-col">
+<div id="info-column">
+	<h3>Ext.ux.FileTreePanel ver. 1.0-beta3</h3>
+	<p>Purpose of this widget is to provide a client (browser) user interface
+	for easy file management of a directory structure stored on a server.</p>
+	<p>The functions currently implemented are:
+	</p>
+	<ul>
+		<li>Ajax <b>load and display</b> of nodes</li>
+		<li>File type <b>icons</b></li>
+		<li>File <b>upload</b></li>
+		<li>Folder <b>create</b></li>
+		<li>File or folder <b>delete</b></li>
+		<li>File or folder <b>rename</b></li>
+		<li>File or folder <b>move by drag &amp; drop</b></li>
+		<li>On demand folder <b>reload</b></li>
+	</ul>
+	<p>&nbsp;</p>
+	<p>All these functions (except drag &amp; drop) are available via <b>context
+	menu</b> or via <b>keyboard shortcuts</b>. (<i>Note for Opera users:</i> Select a node
+	and press <b>Ctrl+U</b>.)
+	</p>
+	<p>This widget is not standalone but requires <a href="http://extjs.com">Ext JS - JavaScript Library</a>
+	to run.
+	</p>
+	<p>Useful links:
+	</p>
+	<ul>
+		<li><a target="_blank" href="http://extjs.com/forum/showthread.php?t=8894">FileTree forum thread</a></li>
+		<li><a target="_blank" href="http://extjs.com/learn/Extension:FileTree">FileTree wiki page</a></li>
+		<li><a target="_blank" href="http://ajaxian.com/archives/ext-file-tree-widget">Ajaxian FileTree article</a></li>
+		<li><a target="_blank" href="/accordion-preview">Accordion Widget</a></li>
+		<li><a target="_blank" href="/uploadform">Upload Form Widget</a></li>
+	</ul>
+	<p>&nbsp;</p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-butcc-donate.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<img alt="" src="/img/paypal2.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+</form>
+	<p>Author: <i>Jozef Sakalos, aka Saki</i></p>
+</div>
+</div>
+<!--}}}-->
+
+</div>
+
+<!--{{{-->
+<div id="adsense-bottom">
+<script type="text/javascript"><!--
+google_ad_client = "pub-2768521146228687";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_type = "text_image";
+//2007-07-08: FileTree
+google_ad_channel = "2367587409";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<!--}}}-->
+
+<!-- Remove next line from local installation -->
+<script  type="text/javascript" language="javascript">
+var s_sid = 90134;var st_dominio = 4;
+var cimg = 0;var cwi =150;var che =30;
+</script>
+<script  type="text/javascript" language="javascript" src="http://s10.histats.com/js9.js"></script>
+<noscript><a href="http://www.histats.com" target="_blank">
+<img  src="http://s4.histats.com/stats/0.gif?90134&1" alt="counter easy hit" border="0"></a>
+</noscript>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2058716-4";
+urchinTracker();
+</script>
+<script type="text/javascript">
+var a_vars = Array();
+var pagename = "FileTree";
+var phpmyvisitesSite = 1;
+var phpmyvisitesURL = "/phpmv/phpmyvisites.php";
+</script>
+<script language="javascript" src="/phpmv/phpmyvisites.js" type="text/javascript">
+</script><object><noscript>
+<img src="/phpmv/phpmyvisites.php" alt="Statistics" style="border:0">
+</noscript></object>
+
+</body>
+</html>

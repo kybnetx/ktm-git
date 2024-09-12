@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="../extjs/resources/css/ext-all.css" />
+
+<script type="text/javascript" src="../extjs/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../extjs/ext-all-debug.js"></script>
+<script type="text/javascript" src="../ktm.js"></script>
+<script type="text/javascript" src="sq1.js"></script>
+
+<script type="text/javascript">
+	Ext.onReady(ktm.app.init, ktm.app);
+</script>
+
+<style type="text/css">
+	#container {
+		background-color: #a0a0a0;
+		width: 1100px;
+		height: 770px;
+        padding: 10px;
+    }
+	#sq_container {
+		float: left;
+		background-color: #ffa0a0;
+		width: 500px;
+		height: 350px;
+        padding: 5px;
+    }
+	#sb_container {
+		float: left;
+		background-color: #a0ffa0;
+		width: 500px;
+		height: 350px;
+        padding: 5px;
+    }
+    #kt_container {
+		float: left;
+		background-color: #a0a0ff;
+		width: 500px;
+		height: 350px;
+        padding: 5px;
+    }
+    #pg_container {
+		float: left;
+		background-color: #ffffa0;
+		width: 500px;
+		height: 350px;
+        padding: 5px;
+    }
+
+	#info-sq p {
+		font-size:12px;
+        margin: 4px;
+    }
+
+	.sq-node .x-tree-node-icon {
+		background-image:url( ../extjs/resources/images/default/tree/folder.gif ) !important;
+	}
+</style>
+
+<title>Kanaltabellen Manager</title>
+
+</head>
+
+<body>
+
+
+<div id="container">
+	<div id="sq_container">
+		<div id="tree-sq"></div>
+		<div id="info-sq"></div>
+	</div>
+
+	<div id="sb_container">
+	</div>
+
+	<div id="kt_container">
+		<div id="grid-kt"></div>
+	</div>
+
+	<div id="pg_container">
+	</div>
+<div>
+
+</body>
+
+</html>

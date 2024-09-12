@@ -1,0 +1,8 @@
+
+1. You need all CPAN stuff from snapshot; Install it as root.
+
+2. Check the Perl version and adjust it in katama/installjsonxs.sh
+
+3. Run katama/installjsonxs.sh as root to install JSONXS modules
+
+4. Develope, develope, and develope, and develope...........

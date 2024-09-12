@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+ <head>
+  <title>[% template.title or site.title %]</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" type="image/png" href="/static/images/ktmfavicon32x32.png" />
+
+  [%
+    css_link( href = "/static/extjs/resources/css/ext-all.css" );
+    css_link( href = "/static/extjs.ux/Ext.ux.grid.RowActions.css" );
+    css_link( href = "/static/extjs.ux/Ext.ux.grid.CellActions.css" );
+    css_link( href = "/static/extjs.ux/application.css" );
+    js_link( src = "/static/extjs/adapter/ext/ext-base.js" );
+    js_link( src = "/static/extjs/ext-all-debug.js" );
+    js_link( src = "/static/extjs.ux/Ext.ux.TabCloseMenu.js" );
+    js_link( src = "/static/extjs.ux/Ext.ux.HttpProvider.js" );
+    js_link( src = "/static/extjs.ux/Ext.ux.grid.RowActions.js" );
+    js_link( src = "/static/extjs.ux/Ext.ux.grid.CellActions.js" );
+    js_link( src = "/static/extjs.ux/Ext.ux.ThemeCombo.js" );
+    js_link( src = "/static/extjs.ux/Ext.ux.Toast.js" );
+    js_link( src = "/static/extjs.ux/Ext.ux.grid.Various.js" );
+  %]
+
+  <style type="text/css">
+[% PROCESS ktm.css %]
+  </style>
+
+ </head>
+ <body>
+[% content %]
+ </body>
+
+</html>

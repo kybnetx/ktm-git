@@ -1,0 +1,32 @@
+[% META title = 'Kanal Tabellen Manager' %]
+
+  [%
+    js_link( src = "/static/ktm.js" );
+    js_link( src = "/static/pg.js" );
+    js_link( src = "/static/sb.js" );
+    js_link( src = "/static/sq.js" );
+    js_link( src = "/static/kt.js" );
+  %]
+
+<div align="center">
+<div id="app_container">
+
+	<div id="sq_container">
+		<div id="tabpanel-sq" style="text-align: left;"></div>
+	</div>
+
+	<div id="sb_container">
+		<div id="tabpanel-sb" style="text-align: left;"></div>
+	</div>
+
+	<div id="kt_container">
+		<div id="tabpanel-kt" style="text-align: left;"></div>
+	</div>
+
+	<div id="pg_container">
+		<div id="tabpanel-pg" style="text-align: left;"></div>
+	</div>
+
+</div>
+</div>
+
